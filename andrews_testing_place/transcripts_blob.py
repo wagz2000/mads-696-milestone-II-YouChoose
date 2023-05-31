@@ -22,8 +22,8 @@ def get_transcripts(input_file):
     df = pd.read_csv(input_file)
     df['Transcript_Blob'] = df['Transcripts_Raw_Json'].apply(raw_to_blob)
 
-    df.drop('Transcripts_Raw_Json', axis=1)
-    
+    df = df.drop('Transcripts_Raw_Json', axis=1)
+
     return df
         
 
