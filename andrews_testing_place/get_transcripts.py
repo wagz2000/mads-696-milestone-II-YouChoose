@@ -9,7 +9,7 @@ def get_transcript(video_id):
         transcripts = ytt.list_transcripts(video_id)
         transcripts = transcripts.find_transcript(['en'])
         is_generated = transcripts.is_generated
-        raw_transcript = str(transcripts.fetch())
+        raw_transcript = transcripts.fetch()
         return is_generated, raw_transcript
 
     except:

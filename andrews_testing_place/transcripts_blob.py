@@ -1,28 +1,31 @@
 from youtube_transcript_api import YouTubeTranscriptApi as ytt
 import pandas as pd
 import sys
+import json
+import ast
 
-
-def get_transcript(video_id):
-    sys.stdout.write('.')
+def raw_to_blob(transcript_raw):
+    blob = ""
     try:
+        transcript_dict = ast.literal_eval(transcript_raw)
+        for line in transcript_dict:
+            blob += f" {line['text']}"
+        
+        return blob
 
-
-    except:
-        print(f"{video_id} has no transcript")
+    except Exception as e:
+        print( e )
     
     return None
 
 def get_transcripts(input_file):
     df = pd.read_csv(input_file)
-    df['Is_Generated'], df['Transcripts_Raw_Json'] = zip(*df['Video ID'].apply(get_transcript))
-            
+    df['Transcript_Blob'] = df['Transcripts_Raw_Json'].apply(raw_to_blob)
 
+    df.drop('Transcripts_Raw_Json', axis=1)
     
     return df
         
-
-
 
 
 if __name__ == '__main__': 
