@@ -1,0 +1,6 @@
+/.idea/
+data
+*csv
+spacyify/Lib
+spacyify/Include
+spacy_env/
